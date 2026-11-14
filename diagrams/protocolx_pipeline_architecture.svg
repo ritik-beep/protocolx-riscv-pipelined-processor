@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1e293b; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #64748b; }
+      .stage-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+      .stage-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #475569; text-anchor: middle; }
+      .box-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .box-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #475569; text-anchor: middle; }
+      .reg-text { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+      .line-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #0369a1; }
+      .hazard-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: bold; fill: #b91c1c; }
+      .fwd-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: bold; fill: #047857; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#059669"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="680" fill="#f8fafc" rx="12"/>
+
+  <!-- Header -->
+  <rect x="30" y="20" width="1140" height="60" rx="8" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="50" y="48" class="title">ProtocolX — 5-Stage Pipelined RISC-V (RV32I) Processor</text>
+  <text x="50" y="68" class="subtitle">Phase I Architecture Diagram • Team: Naveen Kumar, Aditya Raj, Archit Mamodiya, Shagun Vishnoi, Ritik Ranjan</text>
+
+  <!-- Stage Background Cards -->
+  <!-- IF Stage -->
+  <rect x="30" y="95" width="180" height="420" rx="8" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5"/>
+  <text x="120" y="122" class="stage-title">STAGE 1: IF</text>
+  <text x="120" y="137" class="stage-sub">Instruction Fetch</text>
+
+  <!-- ID Stage -->
+  <rect x="250" y="95" width="200" height="420" rx="8" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="350" y="122" class="stage-title">STAGE 2: ID</text>
+  <text x="350" y="137" class="stage-sub">Instruction Decode</text>
+
+  <!-- EX Stage -->
+  <rect x="490" y="95" width="210" height="420" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+  <text x="595" y="122" class="stage-title">STAGE 3: EX</text>
+  <text x="595" y="137" class="stage-sub">Execute & Address Calc</text>
+
+  <!-- MEM Stage -->
+  <rect x="740" y="95" width="190" height="420" rx="8" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
+  <text x="835" y="122" class="stage-title">STAGE 4: MEM</text>
+  <text x="835" y="137" class="stage-sub">Memory Access</text>
+
+  <!-- WB Stage -->
+  <rect x="970" y="95" width="190" height="420" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/>
+  <text x="1065" y="122" class="stage-title">STAGE 5: WB</text>
+  <text x="1065" y="137" class="stage-sub">Write Back</text>
+
+  <!-- Pipeline Registers (Barriers) -->
+  <!-- IF/ID Register -->
+  <rect x="217" y="110" width="26" height="390" rx="4" fill="#3b82f6" filter="url(#shadow)"/>
+  <text x="230" y="305" class="reg-text" transform="rotate(-90, 230, 305)">IF / ID REGISTER</text>
+
+  <!-- ID/EX Register -->
+  <rect x="457" y="110" width="26" height="390" rx="4" fill="#10b981" filter="url(#shadow)"/>
+  <text x="470" y="305" class="reg-text" transform="rotate(-90, 470, 305)">ID / EX REGISTER</text>
+
+  <!-- EX/MEM Register -->
+  <rect x="707" y="110" width="26" height="390" rx="4" fill="#f97316" filter="url(#shadow)"/>
+  <text x="720" y="305" class="reg-text" transform="rotate(-90, 720, 305)">EX / MEM REGISTER</text>
+
+  <!-- MEM/WB Register -->
+  <rect x="937" y="110" width="26" height="390" rx="4" fill="#8b5cf6" filter="url(#shadow)"/>
+  <text x="950" y="305" class="reg-text" transform="rotate(-90, 950, 305)">MEM / WB REGISTER</text>
+
+  <!-- ==================== IF STAGE COMPONENTS ==================== -->
+  <!-- PC Register -->
+  <rect x="45" y="180" width="60" height="55" rx="5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="75" y="205" class="box-label">PC</text>
+  <text x="75" y="222" class="box-sub">Program Ctr</text>
+
+  <!-- PC Adder (+4) -->
+  <rect x="45" y="270" width="60" height="45" rx="5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="75" y="297" class="box-label">+4</text>
+
+  <!-- Instruction Memory -->
+  <rect x="125" y="180" width="75" height="135" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="162" y="235" class="box-label">Instr</text>
+  <text x="162" y="255" class="box-label">Mem</text>
+  <text x="162" y="275" class="box-sub">ROM/RAM</text>
+
+  <!-- IF Arrows -->
+  <line x1="105" y1="207" x2="125" y2="207" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="75" y1="235" x2="75" y2="270" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="200" y1="247" x2="217" y2="247" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ==================== ID STAGE COMPONENTS ==================== -->
+  <!-- Control Unit -->
+  <rect x="260" y="160" width="180" height="50" rx="5" fill="#ffffff" stroke="#059669" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="185" class="box-label">Main Control Unit</text>
+  <text x="350" y="200" class="box-sub">ALUOp, RegWr, MemRd, MemWr</text>
+
+  <!-- Register File -->
+  <rect x="260" y="230" width="180" height="120" rx="5" fill="#ffffff" stroke="#059669" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="255" class="box-label">Register File (x0 - x31)</text>
+  <text x="350" y="272" class="box-sub">32 x 32-bit (x0 hardwired 0)</text>
+  <text x="295" y="300" class="box-sub">Read 1</text>
+  <text x="295" y="330" class="box-sub">Read 2</text>
+  <text x="405" y="315" class="box-sub">Write Port</text>
+
+  <!-- Immediate Generator -->
+  <rect x="260" y="370" width="180" height="50" rx="5" fill="#ffffff" stroke="#059669" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="395" class="box-label">Immediate Generator</text>
+  <text x="350" y="410" class="box-sub">Sign-Extends I, S, B, U, J</text>
+
+  <!-- ==================== EX STAGE COMPONENTS ==================== -->
+  <!-- ALU Multiplexers (Forwarding) -->
+  <polygon points="505,215 525,225 525,255 505,265" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="515" y="244" class="box-sub">Mux</text>
+
+  <polygon points="505,295 525,305 525,335 505,345" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="515" y="324" class="box-sub">Mux</text>
+
+  <!-- ALU -->
+  <polygon points="545,200 625,240 625,270 545,310 545,265 560,255 545,245" fill="#ffffff" stroke="#ea580c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="580" y="260" class="box-label">ALU</text>
+
+  <!-- Branch / Jump Target Adder -->
+  <rect x="545" y="330" width="140" height="45" rx="5" fill="#ffffff" stroke="#ea580c" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="615" y="352" class="box-label">Branch Adder</text>
+  <text x="615" y="367" class="box-sub">Target = PC + Imm</text>
+
+  <!-- ==================== MEM STAGE COMPONENTS ==================== -->
+  <!-- Data Memory -->
+  <rect x="760" y="220" width="150" height="130" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="835" y="260" class="box-label">Data Memory</text>
+  <text x="835" y="280" class="box-sub">4KB RAM Model</text>
+  <text x="835" y="300" class="box-sub">Word-Aligned Load / Store</text>
+
+  <!-- ==================== WB STAGE COMPONENTS ==================== -->
+  <!-- Writeback Mux -->
+  <polygon points="1010,240 1045,255 1045,315 1010,330" fill="#ffffff" stroke="#0d9488" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1028" y="290" class="box-label">Mux</text>
+  <text x="1100" y="270" class="box-sub">ALU Result</text>
+  <text x="1100" y="290" class="box-sub">Mem Data</text>
+  <text x="1100" y="310" class="box-sub">PC + 4</text>
+
+  <!-- Connectors through pipeline -->
+  <line x1="625" y1="255" x2="707" y2="255" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="733" y1="255" x2="760" y2="255" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="910" y1="285" x2="937" y2="285" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="963" y1="285" x2="1010" y2="285" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ==================== BOTTOM: HAZARD & FORWARDING UNIT ==================== -->
+  <rect x="250" y="530" width="670" height="120" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="585" y="555" class="box-label" fill="#0f172a" font-size="15">Hazard Detection & Forwarding Unit</text>
+  <text x="585" y="572" class="box-sub">Aditya Raj (Technical Lead) & Naveen Kumar (RTL Developer)</text>
+
+  <!-- Sub-boxes inside Hazard Unit -->
+  <rect x="270" y="585" width="290" height="50" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1"/>
+  <text x="415" y="605" class="hazard-label" text-anchor="middle">Load-Use & Control Hazard Detection</text>
+  <text x="415" y="622" class="box-sub" text-anchor="middle">PC_Write=0 • IF/ID_Write=0 • Pipeline Flush on Branch</text>
+
+  <rect x="585" y="585" width="315" height="50" rx="5" fill="#ecfdf5" stroke="#34d399" stroke-width="1"/>
+  <text x="742" y="605" class="fwd-label" text-anchor="middle">Data Forwarding Unit</text>
+  <text x="742" y="622" class="box-sub" text-anchor="middle">EX/MEM -> EX (Forward 2'b10) • MEM/WB -> EX (Forward 2'b01)</text>
+
+  <!-- Forwarding Paths (Green Dashed Arrows) -->
+  <path d="M 720 230 L 720 180 L 515 180 L 515 215" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+  <text x="620" y="172" class="fwd-label" text-anchor="middle">EX/MEM Forwarding Path (RAW Hazard)</text>
+
+  <path d="M 950 230 L 950 150 L 495 150 L 495 295" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+  <text x="730" y="142" class="fwd-label" text-anchor="middle">MEM/WB Forwarding Path</text>
+
+  <!-- Writeback Path (Blue line back to RegFile) -->
+  <path d="M 1045 285 L 1070 285 L 1070 470 L 350 470 L 350 350" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="710" y="462" class="line-label" text-anchor="middle">Write-Back Data to Register File (RegWrite = 1)</text>
+
+  <!-- Branch / Flush Path (Red line back to PC and Flush) -->
+  <path d="M 685 352 L 700 352 L 700 440 L 75 440 L 75 235" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)"/>
+  <text x="380" y="432" class="hazard-label" text-anchor="middle">Branch Taken Target PC Update & Pipeline Flushes</text>
+</svg>

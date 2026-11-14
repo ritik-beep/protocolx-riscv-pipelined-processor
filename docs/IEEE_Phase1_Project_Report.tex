@@ -1,0 +1,138 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Design and Implementation of a 5-Stage Pipelined RISC-V Processor (ProtocolX) --- Phase I Report}
+
+\author{
+\IEEEauthorblockN{Naveen Kumar}
+\IEEEauthorblockA{\textit{Project Lead \& RTL Developer} \\
+Roll No: 2401020041}
+\and
+\IEEEauthorblockN{Aditya Raj}
+\IEEEauthorblockA{\textit{Technical Lead \& Verification} \\
+Roll No: 2401010032}
+\and
+\IEEEauthorblockN{Archit Mamodiya}
+\IEEEauthorblockA{\textit{Literature Review \& Research} \\
+Roll No: 2401010095}
+\and
+\IEEEauthorblockN{Shagun Vishnoi}
+\IEEEauthorblockA{\textit{IEEE Report \& Documentation} \\
+Roll No: 2401020060}
+\and
+\IEEEauthorblockN{Ritik Ranjan}
+\IEEEauthorblockA{\textit{Architecture Diagrams \& Video} \\
+Roll No: 2401010388}
+}
+
+\maketitle
+
+\begin{abstract}
+Pipelining is a cornerstone of modern processor design that increases instruction execution throughput by overlapping instruction execution across sequential processing stages. In this Phase I project, team ProtocolX designed, implemented, and verified a 32-bit 5-stage pipelined processor core implementing the open RISC-V (RV32I) instruction set architecture. The processor architecture comprises Instruction Fetch (IF), Instruction Decode (ID), Execute (EX), Memory Access (MEM), and Write-Back (WB) stages, interfaced by four pipeline barrier registers. To resolve dependencies without excessive stalling, we designed a dedicated Hazard Detection and Data Forwarding Unit. This unit handles Read-After-Write (RAW) data hazards through EX/MEM and MEM/WB operand forwarding, manages load-use hazards through a single-cycle stall bubble, and handles control hazards by flushing speculatively fetched instructions on taken branches. The design was written in Verilog HDL and verified using the Icarus Verilog simulator. All 42 verification assertions across unit and system testbenches passed with zero errors, establishing a robust, working prototype for Phase I.
+\end{abstract}
+
+\begin{IEEEkeywords}
+RISC-V, RV32I, Pipelining, 5-Stage Processor, Data Hazards, Forwarding, Verilog HDL, Simulation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Single-cycle processor designs suffer from poor clock frequencies because the cycle time must equal the latency of the slowest instruction in the architecture. Pipelining solves this bottleneck by subdividing instruction execution into balanced sequential stages. 
+
+The RISC-V instruction set architecture (RV32I) provides a clean, modern, and open foundation for processor design. Unlike older CISC architectures, RISC-V features fixed 32-bit instruction lengths and a streamlined register-register load/store microarchitecture. In this Phase I project, our team (ProtocolX) implemented and verified a synthesizable 5-stage pipelined RV32I processor core with full hazard resolution in Verilog HDL.
+
+\section{Literature Review}
+Waterman and Asanovi\'c \cite{riscv_spec} introduced the open-source RISC-V instruction manual, highlighting the regular instruction field alignments that drastically reduce instruction decode complexity. Patterson and Hennessy \cite{patterson} established the standard 5-stage RISC pipeline consisting of IF, ID, EX, MEM, and WB stages separated by edge-triggered registers. 
+
+Hennessy and Patterson \cite{hennessy} characterized pipeline hazards into structural, data, and control hazards. Data hazards occur when an instruction depends on an uncommitted register in the pipeline. Rather than stalling execution, data forwarding (bypassing) routes intermediate results directly from pipeline registers to execution units. Load-use hazards, however, require a single-cycle hardware interlock because the loaded data is only available at the conclusion of the memory stage. Open-source educational cores like Claire Wolf's PicoRV32 \cite{picorv32} and Kindgren's SERV \cite{serv} demonstrate various microarchitectural trade-offs, providing useful comparison points for our fully pipelined design.
+
+\section{Proposed Architecture}
+Our processor core consists of five pipelined stages, four pipeline registers, and a centralized hazard detection and forwarding unit.
+
+\subsection{Pipeline Stages}
+\begin{enumerate}
+    \item \textbf{Instruction Fetch (IF):} Updates the Program Counter (PC), fetches 32-bit instructions from Instruction Memory, and computes $PC + 4$. When a branch or jump is taken, the target PC calculated in the EX stage is chosen.
+    \item \textbf{Instruction Decode (ID):} Decodes the instruction opcode and generates pipeline control signals. It contains a 32-entry $\times$ 32-bit Register File ($x0$ hardwired to zero) with internal same-cycle write-through bypass. An Immediate Generator sign-extends I, S, B, U, and J immediate formats.
+    \item \textbf{Execute (EX):} Contains a 32-bit Arithmetic Logic Unit (ALU) supporting arithmetic, logic, shift, and comparison operations. Forwarding multiplexers select between decoded register operands and forwarded results from the MEM and WB stages. A branch adder computes $PC + \text{Immediate}$ and evaluates branch conditions.
+    \item \textbf{Memory Access (MEM):} Interacts with the 4KB synchronous Data Memory for Load Word ($LW$) and Store Word ($SW$) instructions.
+    \item \textbf{Write-Back (WB):} Selects between the ALU result, memory read data, or $PC+4$ and writes to the destination register ($rd$).
+\end{enumerate}
+
+\subsection{Pipeline Registers}
+Four edge-triggered pipeline registers maintain stage boundaries:
+\begin{itemize}
+    \item \texttt{pipe\_if\_id}: Latches PC, $PC+4$, and instruction; supports stall hold and synchronous flush to NOP.
+    \item \texttt{pipe\_id\_ex}: Latches register values, immediate, PC, register addresses, and control words; supports flush.
+    \item \texttt{pipe\_ex\_mem}: Latches ALU result, store data, destination register address, and memory controls.
+    \item \texttt{pipe\_mem\_wb}: Latches memory data, ALU result, and register write enable.
+\end{itemize}
+
+\subsection{Hazard Detection and Forwarding Unit}
+The Hazard Unit prevents pipeline hazards:
+\begin{itemize}
+    \item \textbf{Data Forwarding:} If an instruction in EX depends on a register written by an instruction in MEM or WB, data is forwarded directly into the ALU input multiplexers without stalling.
+    \item \textbf{Load-Use Hazard Stall:} When an instruction in ID depends on a register being loaded by an instruction in EX, the unit deasserts $pc\_write$ and $if\_id\_write$ and flushes ID/EX with a NOP for one cycle.
+    \item \textbf{Control Hazard Flush:} On a taken branch or jump, instructions speculatively fetched in IF/ID and ID/EX are flushed.
+\end{itemize}
+
+\section{Verification and Results}
+The processor was verified using Icarus Verilog v13.0. Seven test suites were executed, including dedicated unit testbenches and assembly programs translated to hex machine code.
+
+\begin{table}[htbp]
+\caption{Phase I Verification Test Summary}
+\begin{center}
+\begin{tabular}{llcc}
+\toprule
+\textbf{Testbench} & \textbf{Target Functionality} & \textbf{Assertions} & \textbf{Status} \\
+\midrule
+\texttt{tb\_alu.v} & ALU Arithmetic \& Logic & 10 & PASS (10/10) \\
+\texttt{tb\_reg\_file.v} & Regfile Reads, Writes, $x0$ Zero & 3 & PASS (3/3) \\
+\texttt{tb\_hazard\_unit.v} & Forwarding \& Stall Unit & 4 & PASS (4/4) \\
+\texttt{tb\_riscv\_core.v} & Pipeline Arithmetic Suite & 10 & PASS (10/10) \\
+\texttt{tb\_riscv\_hazard.v} & RAW Hazard Forwarding & 4 & PASS (4/4) \\
+\texttt{tb\_riscv\_mem.v} & Load/Store \& Load-Use Stall & 6 & PASS (6/6) \\
+\texttt{tb\_riscv\_branch.v} & Branch Taken \& Flush & 5 & PASS (5/5) \\
+\midrule
+\textbf{Total} & & \textbf{42} & \textbf{PASS (100\%)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+All 42 assertions passed. Real waveform artifacts (\texttt{.vcd}) and cycle execution logs were collected, confirming correct hazard stall injection and branch flushing without data corruption.
+
+\section{Scope and Phase II Roadmap}
+\textbf{Completed in Phase I:} Full 5-stage pipeline datapath, 4 pipeline registers, RV32I base instructions (R-type, I-type, LW, SW, BEQ, BNE, JAL), forwarding unit, load-use stall logic, and automated simulation suite.
+
+\textbf{Planned for Phase II:} Control and Status Registers (CSRs), hardware timer and external interrupts, dynamic 2-bit branch prediction, RV32M multiplier hardware extension, and FPGA board deployment.
+
+\section{Team Contributions}
+\begin{itemize}
+    \item \textbf{Naveen Kumar (2401020041):} Project Lead and Primary RTL Developer; authored processor core, datapath, ALU, register file, and pipeline registers.
+    \item \textbf{Aditya Raj (2401010032):} Technical Lead, Pipeline Design and Verification; implemented hazard and forwarding logic, authored all testbenches, and managed simulation verification.
+    \item \textbf{Archit Mamodiya (2401010095):} Literature Review and Research; surveyed RISC-V specifications and prior processor literature.
+    \item \textbf{Shagun Vishnoi (2401020060):} IEEE Report and Documentation; structured and formatted the report and compiled authentic citations.
+    \item \textbf{Ritik Ranjan (2401010388):} Architecture Diagrams, GitHub Documentation and Video Preparation; designed vector diagrams, video script, and documentation.
+\end{itemize}
+
+\begin{thebibliography}{00}
+\bibitem{riscv_spec} A. Waterman and K. Asanovi\'c, ``The RISC-V Instruction Set Manual, Volume I: Unprivileged ISA,'' Version 20191213, RISC-V Foundation, Dec. 2019.
+\bibitem{patterson} D. A. Patterson and J. L. Hennessy, \textit{Computer Organization and Design: The Hardware/Software Interface (RISC-V Edition)}, Morgan Kaufmann, 2017.
+\bibitem{hennessy} J. L. Hennessy and D. A. Patterson, \textit{Computer Architecture: A Quantitative Approach}, 6th ed., Morgan Kaufmann, 2019.
+\bibitem{picorv32} C. Wolf, ``PicoRV32 --- A Size-Optimized RISC-V CPU,'' YosysHQ GitHub Repository, 2019.
+\bibitem{serv} O. Kindgren, ``SERV: The SErial RISC-V Core,'' Qamcom Research \& Technology, 2020.
+\bibitem{harris} S. Harris and D. Harris, \textit{Digital Design and Computer Architecture (RISC-V Edition)}, Morgan Kaufmann, 2021.
+\end{thebibliography}
+
+\end{document}
