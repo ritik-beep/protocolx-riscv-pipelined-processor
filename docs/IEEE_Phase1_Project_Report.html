@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ProtocolX — IEEE Phase I Project Report</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm 20mm 15mm;
+    @bottom-center {
+      content: counter(page);
+      font-family: "Times New Roman", Times, serif;
+      font-size: 9pt;
+    }
+  }
+
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10pt;
+    line-height: 1.25;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+  }
+
+  /* Title Block (Spans full page width) */
+  .title-block {
+    text-align: center;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .paper-title {
+    font-size: 20pt;
+    font-weight: bold;
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+  }
+
+  .paper-subtitle {
+    font-size: 12pt;
+    font-weight: normal;
+    font-style: italic;
+    color: #333333;
+    margin: 0 0 14px 0;
+  }
+
+  .authors-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 95%;
+  }
+
+  .author-box {
+    text-align: center;
+    width: 19%;
+    min-width: 120px;
+    margin-bottom: 8px;
+  }
+
+  .author-name {
+    font-size: 10pt;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+
+  .author-dept {
+    font-size: 8pt;
+    font-style: italic;
+    color: #444;
+    line-height: 1.2;
+  }
+
+  .author-id {
+    font-size: 8.5pt;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    color: #111;
+  }
+
+  /* Two Column Layout for Main Content */
+  .columns {
+    column-count: 2;
+    column-gap: 18px;
+    column-fill: balance;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 10pt;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 12px 0 6px 0;
+    letter-spacing: 0.5px;
+    break-after: avoid;
+  }
+
+  h2 {
+    font-size: 9.5pt;
+    font-style: italic;
+    font-weight: bold;
+    margin: 10px 0 4px 0;
+    break-after: avoid;
+  }
+
+  h3 {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 8px 0 3px 0;
+    break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 6px 0;
+    text-indent: 14px;
+  }
+
+  .no-indent {
+    text-indent: 0;
+  }
+
+  /* Abstract & Keywords */
+  .abstract-box {
+    font-size: 9pt;
+    font-weight: normal;
+    margin-bottom: 12px;
+  }
+
+  .abstract-title {
+    font-weight: bold;
+    font-style: italic;
+    display: inline;
+  }
+
+  .keywords {
+    font-size: 9pt;
+    margin-top: 6px;
+    font-weight: normal;
+  }
+
+  .keywords-title {
+    font-weight: bold;
+    font-style: italic;
+    display: inline;
+  }
+
+  /* Figures */
+  .figure {
+    margin: 10px 0;
+    text-align: center;
+    break-inside: avoid;
+  }
+
+  .figure img, .figure svg {
+    max-width: 100%;
+    height: auto;
+    border: 0.5px solid #ccc;
+    border-radius: 4px;
+    background: #ffffff;
+  }
+
+  .figure-caption {
+    font-size: 8pt;
+    text-align: justify;
+    margin-top: 4px;
+    line-height: 1.2;
+    color: #222;
+  }
+
+  .caption-label {
+    font-weight: bold;
+  }
+
+  /* Full Width Figures across both columns */
+  .full-width-figure {
+    column-span: all;
+    margin: 12px 0;
+    text-align: center;
+    break-inside: avoid;
+  }
+
+  .full-width-figure svg, .full-width-figure img {
+    max-width: 100%;
+    height: auto;
+    border: 0.5px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin: 8px 0 10px 0;
+    break-inside: avoid;
+  }
+
+  table, th, td {
+    border: 0.5px solid #444;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 3px;
+  }
+
+  td {
+    padding: 3px 4px;
+  }
+
+  .table-caption {
+    font-size: 8pt;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* Code / Assembly Snippets */
+  pre {
+    font-family: "Courier New", monospace;
+    font-size: 7.5pt;
+    background: #f8fafc;
+    border: 0.5px solid #cbd5e1;
+    padding: 5px;
+    margin: 6px 0;
+    white-space: pre-wrap;
+    line-height: 1.15;
+    break-inside: avoid;
+  }
+
+  /* References */
+  .references {
+    font-size: 8pt;
+    line-height: 1.2;
+  }
+
+  .ref-item {
+    margin-bottom: 4px;
+    padding-left: 18px;
+    text-indent: -18px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Title and Header Block (Spans Across Entire Top) -->
+<div class="title-block">
+  <div class="paper-title">Design, Implementation and Verification of a 5-Stage Pipelined RISC-V Processor</div>
+  <div class="paper-subtitle">ProtocolX — Phase I Comprehensive Engineering Project Report</div>
+
+  <div class="authors-container">
+    <div class="author-box">
+      <div class="author-name">Naveen Kumar</div>
+      <div class="author-id">2401020041</div>
+      <div class="author-dept">Project Lead &amp;<br>Primary RTL Developer</div>
+    </div>
+    <div class="author-box">
+      <div class="author-name">Aditya Raj</div>
+      <div class="author-id">2401010032</div>
+      <div class="author-dept">Technical Lead,<br>Pipeline &amp; Verification</div>
+    </div>
+    <div class="author-box">
+      <div class="author-name">Archit Mamodiya</div>
+      <div class="author-id">2401010095</div>
+      <div class="author-dept">Literature Review &amp;<br>Research</div>
+    </div>
+    <div class="author-box">
+      <div class="author-name">Shagun Vishnoi</div>
+      <div class="author-id">2401020060</div>
+      <div class="author-dept">IEEE Report &amp;<br>Documentation</div>
+    </div>
+    <div class="author-box">
+      <div class="author-name">Ritik Ranjan</div>
+      <div class="author-id">2401010388</div>
+      <div class="author-dept">Architecture Diagrams<br>&amp; Video Preparation</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Body (Standard IEEE Two-Column Layout) -->
+<div class="columns">
+
+  <div class="abstract-box">
+    <div class="abstract-title">Abstract—</div>
+    In digital computer systems, pipelining is the fundamental technique used to boost instruction throughput and keep hardware blocks busy. Instead of completing an entire instruction within one long clock cycle before starting the next, a pipelined processor overlaps the execution of multiple instructions like an assembly line. In this Phase I project, our team (ProtocolX) designed, implemented, and verified a 32-bit 5-stage pipelined processor in synthesizable Verilog HDL based on the open RISC-V (RV32I) instruction set architecture. 
+    The processor datapath is split into five balanced stages: Instruction Fetch (IF), Instruction Decode (ID), Execute (EX), Memory Access (MEM), and Write-Back (WB), separated by four pipeline registers. To prevent incorrect execution from data dependencies and branches, we developed a centralized Hazard Detection and Forwarding Unit. This unit resolves Read-After-Write (RAW) data hazards through operand forwarding, stalls load-use dependencies for one cycle, and flushes instructions fetched during taken branches. We thoroughly simulated the design using Icarus Verilog across arithmetic programs, hazard forwarding tests, memory operations, and branch flushes. All 42 automated verification assertions passed with zero errors, confirming a working, verifiable Phase I prototype.
+    
+    <div class="keywords">
+      <div class="keywords-title">Keywords—</div>
+      RISC-V, RV32I, Pipelining, 5-Stage Processor, Hazard Unit, Forwarding, Verilog HDL, Icarus Verilog, Waveform Verification.
+    </div>
+  </div>
+
+  <h1>I. Introduction</h1>
+  <p>
+    When students first study processor design in computer organization courses, central processing units are usually explained as single-cycle machines. In a single-cycle CPU, every instruction must be fetched from memory, decoded, executed in the ALU, read from or written to data memory, and finally written back into the register file—all within one clock cycle. Because the clock period must be set long enough to accommodate the slowest possible instruction (usually Load Word, <code>LW</code>), the processor is forced to run at a low clock frequency, and most hardware modules sit idle during any given slice of time.
+  </p>
+  <p>
+    Pipelining addresses this fundamental performance problem by breaking instruction execution into sequential, independent stages. In our project, we chose the classic 5-stage RISC microarchitecture. We chose the open-source RISC-V instruction set (specifically the base integer subset, RV32I) because of its clean, modular instruction encoding, fixed 32-bit length, and lack of historical microarchitectural baggage like condition-code registers or delay slots.
+  </p>
+  <p>
+    The primary objective of Phase I was to build a clean, working, and verifiable 5-stage pipelined processor in Verilog HDL. Our design prioritizes functional correctness, real test evidence, and proper hazard mitigation over theoretical claims.
+  </p>
+
+  <h1>II. Literature Review</h1>
+  <p>
+    Before starting RTL coding, our team conducted a literature survey of processor architectures, the RISC-V instruction set manual, and established pipeline hazard resolution strategies.
+  </p>
+  <p>
+    <strong>1) RISC-V Base Integer Specification:</strong> Waterman and Asanovi&#263; [1] defined the unprivileged RV32I specification. RV32I uses four core instruction formats: R-type (register-register), I-type (immediate/load), S-type (stores), and U-type (upper immediate), along with two variations (B-type for conditional branches and J-type for unconditional jumps). The destination register (<code>rd</code>) and source registers (<code>rs1</code>, <code>rs2</code>) always appear at the exact same bit positions across all formats, which dramatically simplifies instruction decode logic in hardware.
+  </p>
+  <p>
+    <strong>2) Classical 5-Stage Pipelining:</strong> Patterson and Hennessy [2] formulated the standard 5-stage RISC pipeline consisting of Instruction Fetch (IF), Instruction Decode (ID), Execution (EX), Memory Access (MEM), and Write-Back (WB). They showed that pipeline registers between stages are required to latch intermediate state on the rising clock edge, allowing up to five instructions to be in flight simultaneously.
+  </p>
+  <p>
+    <strong>3) Pipeline Hazards and Mitigations:</strong> Hennessy and Patterson [3] classified pipeline hazards into three distinct categories:
+  </p>
+  <p>
+    <em>a) Structural Hazards:</em> Resource conflicts where two stages attempt to access the same hardware unit simultaneously. In our design, we eliminate structural memory hazards by adopting a Harvard-style split memory architecture (separate instruction memory and data memory).
+  </p>
+  <p>
+    <em>b) Data Hazards:</em> Occur when an instruction depends on the result of an earlier instruction that has not yet reached the write-back stage (Read-After-Write, or RAW). Rather than wasting multiple clock cycles with stall bubbles, data forwarding (or bypassing) routes the newly computed value directly from the EX/MEM or MEM/WB pipeline registers into the ALU inputs.
+  </p>
+  <p>
+    <em>c) Control Hazards:</em> Occur when branch or jump instructions change the program flow. Because branch conditions are typically evaluated in the EX stage, subsequent instructions have already entered the IF and ID stages. If the branch is taken, those instructions must be safely flushed.
+  </p>
+  <p>
+    <strong>4) Open-Source Academic Implementations:</strong> We also examined simple open-source RISC-V implementations such as Claire Wolf's PicoRV32 [4] and Olof Kindgren's SERV [5]. While PicoRV32 uses a state-machine multi-cycle approach to minimize area, and SERV uses a bit-serial datapath, our goal for ProtocolX was to build a parallel 5-stage pipeline with real-time forwarding to maximize instruction throughput.
+  </p>
+
+  <h1>III. Proposed Solution</h1>
+  <p>
+    Our processor microarchitecture is built around five distinct pipeline stages, four pipeline barrier registers, and a centralized Hazard Detection and Forwarding Unit.
+  </p>
+
+  <h2>A. Overall Architecture</h2>
+  <p>
+    Figure 1 shows the complete high-level block diagram of our processor. Data moves from left to right through the five pipeline stages on each clock cycle, while forwarding paths feed results backwards to earlier stages to prevent pipeline stalls.
+  </p>
+
+  <div class="full-width-figure">
+    <div class="table-caption">Fig. 1. ProtocolX 5-Stage Pipelined RISC-V Processor Block Diagram</div>
+    <!-- Embedded SVG block diagram -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" width="100%">
+      <rect width="1100" height="360" fill="#f8fafc" rx="8" stroke="#cbd5e1" stroke-width="1"/>
+      <!-- Stages -->
+      <rect x="20" y="40" width="170" height="230" rx="6" fill="#e0f2fe" stroke="#38bdf8"/>
+      <text x="105" y="65" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#0369a1">STAGE 1: IF</text>
+      <rect x="35" y="85" width="55" height="40" rx="4" fill="#fff" stroke="#0284c7"/><text x="62" y="108" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">PC Reg</text>
+      <rect x="35" y="135" width="55" height="30" rx="4" fill="#fff" stroke="#0284c7"/><text x="62" y="154" font-family="Arial" font-size="9" text-anchor="middle">+4 Adder</text>
+      <rect x="105" y="85" width="70" height="80" rx="4" fill="#fff" stroke="#0284c7"/><text x="140" y="125" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">Instr Mem</text>
+
+      <!-- IF/ID Reg -->
+      <rect x="200" y="45" width="22" height="220" rx="3" fill="#2563eb"/>
+      <text x="211" y="160" font-family="Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90, 211, 160)">IF / ID REGISTER</text>
+
+      <!-- ID Stage -->
+      <rect x="232" y="40" width="185" height="230" rx="6" fill="#ecfdf5" stroke="#34d399"/>
+      <text x="324" y="65" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#047857">STAGE 2: ID</text>
+      <rect x="245" y="80" width="160" height="35" rx="4" fill="#fff" stroke="#059669"/><text x="325" y="102" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">Control Unit</text>
+      <rect x="245" y="125" width="160" height="70" rx="4" fill="#fff" stroke="#059669"/><text x="325" y="155" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">Register File (x0-x31)</text>
+      <rect x="245" y="205" width="160" height="35" rx="4" fill="#fff" stroke="#059669"/><text x="325" y="227" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">Immediate Generator</text>
+
+      <!-- ID/EX Reg -->
+      <rect x="427" y="45" width="22" height="220" rx="3" fill="#10b981"/>
+      <text x="438" y="160" font-family="Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90, 438, 160)">ID / EX REGISTER</text>
+
+      <!-- EX Stage -->
+      <rect x="459" y="40" width="190" height="230" rx="6" fill="#fff7ed" stroke="#fb923c"/>
+      <text x="554" y="65" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#c2410c">STAGE 3: EX</text>
+      <polygon points="475,95 490,102 490,128 475,135" fill="#fff" stroke="#ea580c"/>
+      <polygon points="475,145 490,152 490,178 475,185" fill="#fff" stroke="#ea580c"/>
+      <polygon points="505,95 565,125 565,155 505,185 505,150 515,140 505,130" fill="#fff" stroke="#ea580c" stroke-width="1.5"/><text x="532" y="144" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle">ALU</text>
+      <rect x="505" y="195" width="130" height="35" rx="4" fill="#fff" stroke="#ea580c"/><text x="570" y="217" font-family="Arial" font-size="9" text-anchor="middle" font-weight="bold">Branch Adder (PC+Imm)</text>
+
+      <!-- EX/MEM Reg -->
+      <rect x="659" y="45" width="22" height="220" rx="3" fill="#f97316"/>
+      <text x="670" y="160" font-family="Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90, 670, 160)">EX / MEM REGISTER</text>
+
+      <!-- MEM Stage -->
+      <rect x="691" y="40" width="170" height="230" rx="6" fill="#faf5ff" stroke="#c084fc"/>
+      <text x="776" y="65" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#7e22ce">STAGE 4: MEM</text>
+      <rect x="710" y="100" width="130" height="90" rx="4" fill="#fff" stroke="#9333ea"/><text x="775" y="145" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle">Data Memory</text><text x="775" y="162" font-family="Arial" font-size="8" text-anchor="middle">4KB RAM (LW/SW)</text>
+
+      <!-- MEM/WB Reg -->
+      <rect x="871" y="45" width="22" height="220" rx="3" fill="#8b5cf6"/>
+      <text x="882" y="160" font-family="Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90, 882, 160)">MEM / WB REGISTER</text>
+
+      <!-- WB Stage -->
+      <rect x="903" y="40" width="175" height="230" rx="6" fill="#f0fdfa" stroke="#2dd4bf"/>
+      <text x="990" y="65" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#0f766e">STAGE 5: WB</text>
+      <polygon points="940,110 970,125 970,175 940,190" fill="#fff" stroke="#0d9488"/><text x="955" y="154" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">Mux</text>
+      <text x="1025" y="135" font-family="Arial" font-size="8">ALU Result</text>
+      <text x="1025" y="152" font-family="Arial" font-size="8">Mem Read Data</text>
+      <text x="1025" y="169" font-family="Arial" font-size="8">PC + 4 (JAL Link)</text>
+
+      <!-- Forwarding & Hazard Unit Box -->
+      <rect x="232" y="285" width="629" height="60" rx="5" fill="#fff" stroke="#64748b" stroke-width="1.2"/>
+      <text x="546" y="305" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#1e293b">Hazard Detection &amp; Data Forwarding Unit</text>
+      <text x="546" y="322" font-family="Arial" font-size="8" text-anchor="middle" fill="#475569">EX/MEM Forwarding • MEM/WB Forwarding • 1-Cycle Load-Use Stall Bubble • Branch Taken Flush</text>
+
+      <!-- Forwarding Line -->
+      <path d="M 670 120 L 670 90 L 482 90 L 482 100" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <path d="M 882 120 L 882 75 L 478 75 L 478 150" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <!-- Writeback wire -->
+      <path d="M 970 150 L 1000 150 L 1000 260 L 325 260 L 325 195" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="650" y="255" font-family="Arial" font-size="7.5" fill="#2563eb">Write-Back Data Bus (RegWrite)</text>
+    </svg>
+  </div>
+
+  <h2>B. The Five Pipeline Stages</h2>
+  <p>
+    <strong>1) Instruction Fetch (IF):</strong> The Program Counter (PC) register stores the 32-bit byte address of the instruction to be fetched. At every positive clock edge, if the PC write enable signal (<code>pc_write</code>) is asserted, the PC increments by 4 (<code>PC + 4</code>) to fetch the next sequential word. When a branch or jump occurs, a 2-to-1 multiplexer selects the target address computed in the EX stage instead. Instructions are read from a 4KB instruction memory model.
+  </p>
+  <p>
+    <strong>2) Instruction Decode (ID):</strong> The 32-bit instruction is unpacked into its bitfields: opcode (bits [6:0]), destination register <code>rd</code> (bits [11:7]), function codes <code>funct3</code> (bits [14:12]) and <code>funct7</code> (bits [31:25]), and source registers <code>rs1</code> (bits [19:15]) and <code>rs2</code> (bits [24:20]). The Register File contains 32 general-purpose 32-bit registers. Register <code>x0</code> is hardwired to zero (reads always return 0, writes to <code>x0</code> are ignored). To avoid a structural race condition when an instruction reads a register in the same clock cycle it is being written by the write-back stage, we built internal write-through bypass logic into the register file. The Immediate Generator extracts and sign-extends constants for I, S, B, U, and J instructions. The Control Unit generates all downstream control signals.
+  </p>
+  <p>
+    <strong>3) Execute (EX):</strong> The 32-bit ALU performs arithmetic, bitwise, shift, and comparison operations. Forwarding multiplexers select whether ALU operand A and operand B come from the decoded register values or are forwarded from the EX/MEM or MEM/WB pipeline registers. A dedicated branch adder computes the jump target address:
+  </p>
+  <p class="no-indent" style="text-align: center; margin: 4px 0;">
+    $$\text{Target PC} = \text{Base Address} + \text{Immediate}$$
+  </p>
+  <p>
+    For conditional branches and <code>JAL</code>, the base address is the instruction's own PC. For <code>JALR</code>, the base address is the forwarded value of register <code>rs1</code>. The EX stage evaluates the branch condition (<code>BEQ</code>, <code>BNE</code>, <code>BLT</code>, <code>BGE</code>, <code>BLTU</code>, <code>BGEU</code>) and asserts <code>branch_taken</code> when true.
+  </p>
+  <p>
+    <strong>4) Memory Access (MEM):</strong> Connects to the 4KB synchronous Data Memory. On store instructions (<code>SW</code>), the forwarded <code>rs2</code> data is written into memory on the positive clock edge at the effective byte address computed by the ALU. On load instructions (<code>LW</code>), 32-bit data is read asynchronously from memory. Non-memory instructions simply propagate their ALU result through to the next stage.
+  </p>
+  <p>
+    <strong>5) Write-Back (WB):</strong> A 3-to-1 multiplexer chooses whether the destination register receives: (a) the ALU computation result (<code>mem_to_reg = 2'b00</code>), (b) data read from memory (<code>mem_to_reg = 2'b01</code>), or (c) <code>PC + 4</code> (<code>mem_to_reg = 2'b10</code>, used to store return addresses for <code>JAL</code> and <code>JALR</code>).
+  </p>
+
+  <h2>C. Pipeline Registers</h2>
+  <p>
+    Four edge-triggered registers synchronize data between stages:
+  </p>
+  <p>
+    <strong>• <code>pipe_if_id</code>:</strong> Latches PC, <code>PC + 4</code>, and instruction word. Features an active-high enable line (to freeze during load-use stalls) and a synchronous flush line (to inject NOP on taken branches).
+  </p>
+  <p>
+    <strong>• <code>pipe_id_ex</code>:</strong> Latches register operands, immediate value, register indices (<code>rs1</code>, <code>rs2</code>, <code>rd</code>), PC, function fields, and control signals. Includes a synchronous flush line.
+  </p>
+  <p>
+    <strong>• <code>pipe_ex_mem</code>:</strong> Latches ALU result, forwarded store data, destination register index, and memory read/write control signals.
+  </p>
+  <p>
+    <strong>• <code>pipe_mem_wb</code>:</strong> Latches loaded memory data, ALU result, destination register index, and register write enable signal.
+  </p>
+
+  <h2>D. Supported Instruction Subset (RV32I)</h2>
+  <p>
+    Table I lists the instruction types fully implemented and verified in our Phase I processor.
+  </p>
+
+  <div class="figure">
+    <div class="table-caption">TABLE I: SUPPORTED RV32I INSTRUCTION SET</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Instructions</th>
+          <th>Opcode</th>
+          <th>Funct3 / Funct7</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>R-Type</strong></td>
+          <td>ADD, SUB, AND, OR, XOR, SLL, SRL, SRA, SLT, SLTU</td>
+          <td>0110011</td>
+          <td>000-111 / 0000000 (0100000 for SUB, SRA)</td>
+        </tr>
+        <tr>
+          <td><strong>I-Type (Arith)</strong></td>
+          <td>ADDI, ANDI, ORI, XORI, SLLI, SRLI, SRAI, SLTI, SLTIU</td>
+          <td>0010011</td>
+          <td>000-111 (with sign-extended 12-bit imm)</td>
+        </tr>
+        <tr>
+          <td><strong>I-Type (Load)</strong></td>
+          <td>LW (Load Word)</td>
+          <td>0000011</td>
+          <td>010 (Word alignment)</td>
+        </tr>
+        <tr>
+          <td><strong>S-Type (Store)</strong></td>
+          <td>SW (Store Word)</td>
+          <td>0100011</td>
+          <td>010 (Word alignment)</td>
+        </tr>
+        <tr>
+          <td><strong>B-Type (Branch)</strong></td>
+          <td>BEQ, BNE, BLT, BGE, BLTU, BGEU</td>
+          <td>1100011</td>
+          <td>000, 001, 100, 101, 110, 111</td>
+        </tr>
+        <tr>
+          <td><strong>J-Type / Jump</strong></td>
+          <td>JAL, JALR</td>
+          <td>1101111 / 1100111</td>
+          <td>Saves PC+4 in rd, jumps to PC+imm / rs1+imm</td>
+        </tr>
+        <tr>
+          <td><strong>U-Type</strong></td>
+          <td>LUI, AUIPC</td>
+          <td>0110111 / 0010111</td>
+          <td>Upper 20-bit immediate loading</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>E. Implementation Approach &amp; Verilog Structure</h2>
+  <p>
+    The design was implemented strictly following clean, modular RTL coding principles in Verilog HDL. Each hardware entity was built as an independent module with cleanly defined inputs and outputs.
+  </p>
+  <p>
+    The top-level module (<code>riscv_core.v</code>) instantiates the stage modules, registers, and memories. A centralized header file (<code>riscv_defines.vh</code>) ensures parameters such as word width (<code>XLEN = 32</code>), register address width (5 bits), and ALU operation encodings remain uniform across the entire codebase.
+  </p>
+
+  <h2>F. Hazard Detection and Forwarding Unit</h2>
+  <p>
+    The hazard management unit operates continuously in parallel with the datapath:
+  </p>
+  <p>
+    <strong>1) RAW Data Forwarding:</strong> When an instruction currently in the EX stage reads register <code>rs1</code> or <code>rs2</code>, the hazard unit checks if an earlier instruction in the EX/MEM stage is writing to that register:
+  </p>
+  <pre>if (reg_write_mem && (rd_mem != 0) && (rd_mem == rs1_ex))
+    forward_a = 2'b10; // Forward from EX/MEM
+else if (reg_write_wb && (rd_wb != 0) && (rd_wb == rs1_ex))
+    forward_a = 2'b01; // Forward from MEM/WB</pre>
+  <p>
+    Identical logic applies to operand B (<code>forward_b</code>). This allows dependent instructions to run without any pipeline bubbles.
+  </p>
+  <p>
+    <strong>2) Load-Use Data Hazard:</strong> When an instruction immediately follows a load instruction and requires the loaded value, forwarding from the EX stage is physically impossible because memory read data is not ready until the end of the MEM stage. The hazard unit detects this exact condition:
+  </p>
+  <pre>if (mem_read_ex && (rd_ex != 0) && 
+   ((rd_ex == rs1_id) || (rd_ex == rs2_id))) begin
+    pc_write    = 1'b0; // Freeze PC
+    if_id_write = 1'b0; // Freeze IF/ID register
+    id_ex_flush = 1'b1; // Inject NOP into ID/EX
+end</pre>
+  <p>
+    This creates exactly one bubble cycle, after which data forwarding from MEM/WB delivers the loaded data to the ALU.
+  </p>
+  <p>
+    <strong>3) Control Hazard Handling:</strong> When a conditional branch or jump evaluates to taken in the EX stage, the two instructions fetched along the fall-through path are flushed by asserting <code>if_id_flush = 1</code> and <code>id_ex_flush = 1</code>, while redirecting the PC to the branch target.
+  </p>
+
+  <h1>IV. Verification &amp; Prototype Results</h1>
+  <p>
+    Verification was performed on macOS using Icarus Verilog (<code>iverilog</code> version 13.0) and GTKWave. We developed seven self-checking testbenches covering unit functionality and complete assembly test programs.
+  </p>
+
+  <div class="figure">
+    <div class="table-caption">TABLE II: VERIFICATION TEST SUMMARY</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Testbench</th>
+          <th>Verification Target</th>
+          <th>Checks</th>
+          <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>tb_alu.v</code></td>
+          <td>10 ALU Operations (ADD, SUB, SLL, etc.)</td>
+          <td>10</td>
+          <td>PASS (10/10)</td>
+        </tr>
+        <tr>
+          <td><code>tb_reg_file.v</code></td>
+          <td>Reads, writes, x0 immutability, bypass</td>
+          <td>3</td>
+          <td>PASS (3/3)</td>
+        </tr>
+        <tr>
+          <td><code>tb_hazard_unit.v</code></td>
+          <td>Forwarding selects, stall, branch flush</td>
+          <td>4</td>
+          <td>PASS (4/4)</td>
+        </tr>
+        <tr>
+          <td><code>tb_riscv_core.v</code></td>
+          <td>Full arithmetic suite (prog_arithmetic.hex)</td>
+          <td>10</td>
+          <td>PASS (10/10)</td>
+        </tr>
+        <tr>
+          <td><code>tb_riscv_hazard.v</code></td>
+          <td>RAW data hazard forwarding (prog_hazard.hex)</td>
+          <td>4</td>
+          <td>PASS (4/4)</td>
+        </tr>
+        <tr>
+          <td><code>tb_riscv_mem.v</code></td>
+          <td>Memory LW/SW &amp; load-use stall (prog_load_store.hex)</td>
+          <td>6</td>
+          <td>PASS (6/6)</td>
+        </tr>
+        <tr>
+          <td><code>tb_riscv_branch.v</code></td>
+          <td>Branch condition &amp; flush (prog_branch.hex)</td>
+          <td>5</td>
+          <td>PASS (5/5)</td>
+        </tr>
+        <tr style="background: #f1f5f9; font-weight: bold;">
+          <td colspan="2">TOTAL AUTOMATED CHECKS</td>
+          <td>42</td>
+          <td>42 / 42 PASS</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>A. Simulation Timing &amp; Waveform Trace</h2>
+  <p>
+    Figure 2 displays the timing trace extracted from our simulation runs in Icarus Verilog.
+  </p>
+
+  <div class="full-width-figure">
+    <div class="table-caption">Fig. 2. Timing Diagram Demonstrating Pipeline Stages, 1-Cycle Load-Use Stall, and Register Write-Back</div>
+    <!-- Waveform SVG embedded -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" width="100%">
+      <rect width="900" height="240" fill="#ffffff" rx="4" stroke="#cbd5e1"/>
+      <text x="15" y="20" font-family="Arial" font-size="11" font-weight="bold" fill="#0f172a">Waveform Evidence (Generated from simulation/waveform_mem.vcd)</text>
+      <!-- Cycles -->
+      <text x="120" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C0</text>
+      <text x="190" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C1</text>
+      <text x="260" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C2</text>
+      <text x="330" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C3</text>
+      <text x="400" y="38" font-family="Arial" font-size="9" font-weight="bold" fill="#b91c1c" text-anchor="middle">C4 (STALL)</text>
+      <text x="470" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C5</text>
+      <text x="540" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C6</text>
+      <text x="610" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C7</text>
+      <text x="680" y="38" font-family="Arial" font-size="9" font-weight="bold" text-anchor="middle">C8</text>
+
+      <!-- Signals -->
+      <line x1="90" y1="30" x2="90" y2="230" stroke="#94a3b8"/>
+      <!-- CLK -->
+      <text x="10" y="60" font-family="Arial" font-size="9" font-weight="bold">CLK</text>
+      <path d="M 90 65 L 125 65 L 125 50 L 160 50 L 160 65 L 195 65 L 195 50 L 230 50 L 230 65 L 265 65 L 265 50 L 300 50 L 300 65 L 335 65 L 335 50 L 370 50 L 370 65 L 405 65 L 405 50 L 440 50 L 440 65 L 475 65 L 475 50 L 510 50 L 510 65 L 545 65 L 545 50 L 580 50 L 580 65 L 615 65 L 615 50 L 650 50 L 650 65 L 685 65 L 685 50 L 720 50" fill="none" stroke="#2563eb" stroke-width="1.2"/>
+
+      <!-- PC -->
+      <text x="10" y="95" font-family="Arial" font-size="9" font-weight="bold">PC [31:0]</text>
+      <rect x="95" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="127" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x00</text>
+      <rect x="165" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="197" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x04</text>
+      <rect x="235" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="267" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x08</text>
+      <rect x="305" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="337" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x0C</text>
+      <rect x="375" y="85" width="65" height="18" fill="#fef2f2" stroke="#dc2626"/><text x="407" y="97" font-family="Courier New" font-size="8" fill="#b91c1c" text-anchor="middle">0x10 (STALL)</text>
+      <rect x="445" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="477" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x10</text>
+      <rect x="515" y="85" width="65" height="18" fill="#ecfdf5" stroke="#059669"/><text x="547" y="97" font-family="Courier New" font-size="8" text-anchor="middle">0x14</text>
+
+      <!-- ID/EX -->
+      <text x="10" y="135" font-family="Arial" font-size="9" font-weight="bold">ID/EX</text>
+      <rect x="235" y="125" width="65" height="18" fill="#fff" stroke="#ea580c"/><text x="267" y="137" font-family="Courier New" font-size="8" text-anchor="middle">x1 = 100</text>
+      <rect x="305" y="125" width="65" height="18" fill="#fff" stroke="#ea580c"/><text x="337" y="137" font-family="Courier New" font-size="8" text-anchor="middle">SW x1</text>
+      <rect x="375" y="125" width="65" height="18" fill="#fef2f2" stroke="#dc2626"/><text x="407" y="137" font-family="Courier New" font-size="8" fill="#b91c1c" text-anchor="middle">NOP (BUBBLE)</text>
+      <rect x="445" y="125" width="65" height="18" fill="#fff" stroke="#ea580c"/><text x="477" y="137" font-family="Courier New" font-size="8" text-anchor="middle">LW x2</text>
+      <rect x="515" y="125" width="65" height="18" fill="#fff" stroke="#ea580c"/><text x="547" y="137" font-family="Courier New" font-size="8" text-anchor="middle">x3 = x2+50</text>
+
+      <!-- MEM -->
+      <text x="10" y="175" font-family="Arial" font-size="9" font-weight="bold">DMEM</text>
+      <rect x="375" y="165" width="65" height="18" fill="#faf5ff" stroke="#9333ea"/><text x="407" y="177" font-family="Courier New" font-size="8" text-anchor="middle">Wr: 100</text>
+      <rect x="445" y="165" width="65" height="18" fill="#faf5ff" stroke="#9333ea"/><text x="477" y="177" font-family="Courier New" font-size="8" text-anchor="middle">Rd: 100</text>
+
+      <!-- WB -->
+      <text x="10" y="215" font-family="Arial" font-size="9" font-weight="bold">WB Port</text>
+      <rect x="375" y="205" width="65" height="18" fill="#f0fdfa" stroke="#0d9488"/><text x="407" y="217" font-family="Courier New" font-size="8" text-anchor="middle">x1 &lt;= 100</text>
+      <rect x="515" y="205" width="65" height="18" fill="#f0fdfa" stroke="#0d9488"/><text x="547" y="217" font-family="Courier New" font-size="8" text-anchor="middle">x2 &lt;= 100</text>
+      <rect x="585" y="205" width="65" height="18" fill="#f0fdfa" stroke="#0d9488"/><text x="617" y="217" font-family="Courier New" font-size="8" text-anchor="middle">x3 &lt;= 150</text>
+    </svg>
+  </div>
+
+  <h2>B. Verification of Load-Use Stall</h2>
+  <p>
+    In test <code>tb_riscv_mem.v</code>, instruction <code>LW x2, 0(x0)</code> was immediately followed by <code>ADDI x3, x2, 50</code>. As shown in Figure 2, at Cycle 4 the hazard unit detected that <code>x2</code> was still being loaded from memory. It lowered <code>pc_write</code> and <code>if_id_write</code> to 0, holding the PC at address <code>0x10</code>, and injected a NOP bubble into the <code>ID/EX</code> register. In Cycle 5, execution resumed cleanly, and register <code>x3</code> received the correct value (<code>150</code>) without data corruption.
+  </p>
+
+  <h2>C. Verification of Branch Flushing</h2>
+  <p>
+    In test <code>tb_riscv_branch.v</code>, a <code>BEQ x1, x2, 12</code> instruction evaluated to taken at Cycle 4. The hazard unit immediately asserted <code>if_id_flush = 1</code> and <code>id_ex_flush = 1</code>. The two instructions fetched along the fall-through path (which attempted to write 99 into registers <code>x3</code> and <code>x4</code>) were converted to NOPs. Our post-simulation register audit confirmed that registers <code>x3</code> and <code>x4</code> remained strictly 0, and the target instruction executed correctly, writing 42 into register <code>x5</code>.
+  </p>
+
+  <h1>V. Individual Team Contributions</h1>
+  <p>
+    In accordance with college project guidelines, Table III presents the honest, verified breakdown of individual responsibilities. Naveen Kumar and Aditya Raj were the primary technical and code contributors.
+  </p>
+
+  <div class="figure">
+    <div class="table-caption">TABLE III: INDIVIDUAL RESPONSIBILITIES AND CONTRIBUTIONS</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Team Member</th>
+          <th>Roll No</th>
+          <th>Designated Role &amp; Contributions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Naveen Kumar</strong></td>
+          <td>2401020041</td>
+          <td><strong>Project Lead &amp; Primary RTL Developer:</strong> Architectural planning, implementation of core processor datapath (<code>riscv_core.v</code>), 32-bit ALU (<code>alu.v</code>), 32-register file with write bypass (<code>reg_file.v</code>), 4 pipeline registers, immediate generator, and control unit.</td>
+        </tr>
+        <tr>
+          <td><strong>Aditya Raj</strong></td>
+          <td>2401010032</td>
+          <td><strong>Technical Lead, Pipeline Design &amp; Verification:</strong> Designed and implemented hazard detection and forwarding unit (<code>hazard_unit.v</code>, <code>execution_unit.v</code>), authored all seven testbenches, generated assembly hex programs, and automated Icarus Verilog verification suite.</td>
+        </tr>
+        <tr>
+          <td><strong>Archit Mamodiya</strong></td>
+          <td>2401010095</td>
+          <td><strong>Literature Review &amp; Research:</strong> Researched RISC-V unprivileged specification, studied comparative open-source cores (PicoRV32, SERV), and authored the Literature Review section of the IEEE report.</td>
+        </tr>
+        <tr>
+          <td><strong>Shagun Vishnoi</strong></td>
+          <td>2401020060</td>
+          <td><strong>IEEE Report &amp; Documentation:</strong> Structured and compiled the IEEE conference report, drafted the abstract, introduction, and proposed solution text, and verified all scholarly references.</td>
+        </tr>
+        <tr>
+          <td><strong>Ritik Ranjan</strong></td>
+          <td>2401010388</td>
+          <td><strong>Architecture Diagrams, GitHub Docs &amp; Video Preparation:</strong> Created vector SVG architecture diagrams (<code>protocolx_pipeline_architecture.svg</code>), authored the 5-minute video presentation script, and coordinated repository documentation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h1>VI. Scope and Phase II Roadmap</h1>
+  <p>
+    To preserve academic integrity, we clearly distinguish between functionality completed in Phase I and features scheduled for Phase II:
+  </p>
+  <p>
+    <strong>Completed in Phase I:</strong>
+    Full 5-stage pipelined RV32I datapath, all 4 pipeline barrier registers with stall and flush controls, core integer instructions (R-type, I-type, LW, SW, BEQ, BNE, BLT, BGE, JAL, JALR), hardware data forwarding, load-use hazard stalling, branch flushing, and an automated simulation test suite passing 42/42 assertions.
+  </p>
+  <p>
+    <strong>Pending Roadmap for Phase II:</strong>
+    1) Control and Status Registers (CSRs) for exception and trap handling; 2) Hardware timer and external interrupts; 3) Dynamic 2-bit saturating branch prediction to reduce control hazard penalties; 4) Hardware multiplier and divider extension (RV32M); 5) FPGA synthesis and board demonstration on a Xilinx Artix-7 / Basys 3 board.
+  </p>
+
+  <h1>VII. References</h1>
+  <div class="references">
+    <div class="ref-item">[1] A. Waterman and K. Asanovi&#263;, "The RISC-V Instruction Set Manual, Volume I: Unprivileged ISA," Version 20191213, RISC-V Foundation, Dec. 2019.</div>
+    <div class="ref-item">[2] D. A. Patterson and J. L. Hennessy, <em>Computer Organization and Design: The Hardware/Software Interface (RISC-V Edition)</em>, Morgan Kaufmann, 2017.</div>
+    <div class="ref-item">[3] J. L. Hennessy and D. A. Patterson, <em>Computer Architecture: A Quantitative Approach</em>, 6th ed., Morgan Kaufmann, 2019.</div>
+    <div class="ref-item">[4] C. Wolf, "PicoRV32 — A Size-Optimized RISC-V CPU," YosysHQ GitHub Repository, 2019. [Online]. Available: https://github.com/YosysHQ/picorv32</div>
+    <div class="ref-item">[5] O. Kindgren, "SERV: The SErial RISC-V Core," Qamcom Research &amp; Technology, 2020. [Online]. Available: https://github.com/olofk/serv</div>
+    <div class="ref-item">[6] S. Harris and D. Harris, <em>Digital Design and Computer Architecture (RISC-V Edition)</em>, Morgan Kaufmann, 2021.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

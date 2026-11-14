@@ -102,9 +102,12 @@ protocolx-riscv-pipelined-processor/
 │
 ├── diagrams/                          # Architectural Diagrams
 │   ├── protocolx_pipeline_architecture.svg # Vector block diagram
+│   ├── simulation_waveform_diagram.svg     # Timing and cycle waveform diagram
 │   └── diagram_description.md         # Detailed diagram walkthrough
 │
 ├── docs/                              # Project Documentation & Reports
+│   ├── IEEE_Phase1_Project_Report.pdf  # Compiled IEEE Two-Column Conference PDF
+│   ├── IEEE_Phase1_Project_Report.html # IEEE Conference Format HTML source
 │   ├── IEEE_Phase1_Project_Report.md  # Official IEEE Phase I Report (Markdown)
 │   ├── IEEE_Phase1_Project_Report.tex # IEEE Report LaTeX source file
 │   ├── CONTRIBUTIONS.md               # Detailed individual team contributions
