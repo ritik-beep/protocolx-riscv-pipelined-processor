@@ -1,0 +1,218 @@
+================================================================================
+           PROTOCOLX RISC-V 5-STAGE PROCESSOR - FULL VERIFICATION SUITE         
+                       Execution Date: Sat Nov 14 17:09:18 IST 2026                                  
+================================================================================
+
+>>> 1. Running ALU Unit Test...
+==================================================
+   PROTOCOLX RISC-V ALU UNIT VERIFICATION
+==================================================
+[PASS] ALU ADD 15 + 25 | Result = 0x00000028 (Expected: 0x00000028)
+[PASS] ALU SUB 50 - 20 | Result = 0x0000001e (Expected: 0x0000001e)
+[PASS] ALU AND | Result = 0xf0f00000 (Expected: 0xf0f00000)
+[PASS] ALU OR | Result = 0xffff0000 (Expected: 0xffff0000)
+[PASS] ALU XOR | Result = 0x55aaaa55 (Expected: 0x55aaaa55)
+[PASS] ALU SLL 1 << 4 | Result = 0x00000010 (Expected: 0x00000010)
+[PASS] ALU SRL 128 >> 3 | Result = 0x00000010 (Expected: 0x00000010)
+[PASS]  SRA -2^31 >>> 2 | Result = 0xe0000000 (Expected: 0xe0000000)
+[PASS] LU SLT (-10 < 5) | Result = 0x00000001 (Expected: 0x00000001)
+[PASS] U SLTU (10 < 50) | Result = 0x00000001 (Expected: 0x00000001)
+--------------------------------------------------
+ ALU Test Summary: Passed = 10, Failed = 0
+==================================================
+
+>>> 2. Running Register File Unit Test...
+==================================================
+ PROTOCOLX RISC-V REGISTER FILE VERIFICATION
+==================================================
+[PASS] Write and Read x1 = 0xdeadbeef
+[PASS] x0 Zero Immutability Verified (x0 = 0x00000000)
+[PASS] Same-cycle WB bypass verified on x5 = 0x12345678
+--------------------------------------------------
+ RegFile Test Summary: Passed = 3, Failed = 0
+==================================================
+
+>>> 3. Running Hazard Unit Test...
+==================================================
+ PROTOCOLX HAZARD DETECTION & FORWARDING UNIT TEST
+==================================================
+[PASS] Forwarding EX/MEM -> EX (forward_a = 2'b10)
+[PASS] Forwarding MEM/WB -> EX (forward_b = 2'b01)
+[PASS] Load-Use Hazard detected: Stall injected (pc_write=0, if_id_write=0, id_ex_flush=1)
+[PASS] Control Hazard: Branch Taken Flushed IF/ID and ID/EX
+--------------------------------------------------
+ Hazard Unit Test Summary: Passed = 4, Failed = 0
+==================================================
+
+>>> 4. Running Core Pipeline Arithmetic Test...
+WARNING: rtl/instruction_memory.v:28: $readmemh(testbench/programs/prog_arithmetic.hex): Not enough words in the file for the requested range [0:1023].
+VCD info: dumpfile simulation/waveform.vcd opened for output.
+===============================================================================
+               PROTOCOLX RISC-V 5-STAGE PROCESSOR VERIFICATION                 
+===============================================================================
+Executing test program: testbench/programs/prog_arithmetic.hex
+-------------------------------------------------------------------------------
+[Cycle   0] PC: 0x00000000 | Fetch: 0x00a00093 | WB: [rd: x00 <= 0x00000000 (wr: 0)]
+[Cycle   1] PC: 0x00000004 | Fetch: 0x01400113 | WB: [rd: x00 <= 0x00000000 (wr: 0)]
+[Cycle   2] PC: 0x00000008 | Fetch: 0x002081b3 | WB: [rd: x00 <= 0x00000000 (wr: 0)]
+[Cycle   3] PC: 0x0000000c | Fetch: 0x40110233 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle   4] PC: 0x00000010 | Fetch: 0x0020f2b3 | WB: [rd: x01 <= 0x0000000a (wr: 1)]
+[Cycle   5] PC: 0x00000014 | Fetch: 0x0020e333 | WB: [rd: x02 <= 0x00000014 (wr: 1)]
+[Cycle   6] PC: 0x00000018 | Fetch: 0x0020c3b3 | WB: [rd: x03 <= 0x0000001e (wr: 1)]
+[Cycle   7] PC: 0x0000001c | Fetch: 0x00209413 | WB: [rd: x04 <= 0x0000000a (wr: 1)]
+[Cycle   8] PC: 0x00000020 | Fetch: 0x00115493 | WB: [rd: x05 <= 0x00000000 (wr: 1)]
+[Cycle   9] PC: 0x00000024 | Fetch: 0x0020a533 | WB: [rd: x06 <= 0x0000001e (wr: 1)]
+[Cycle  10] PC: 0x00000028 | Fetch: 0x00000013 | WB: [rd: x07 <= 0x0000001e (wr: 1)]
+[Cycle  11] PC: 0x0000002c | Fetch: 0x00000013 | WB: [rd: x08 <= 0x00000028 (wr: 1)]
+[Cycle  12] PC: 0x00000030 | Fetch: 0x00000013 | WB: [rd: x09 <= 0x0000000a (wr: 1)]
+[Cycle  13] PC: 0x00000034 | Fetch: 0x00000013 | WB: [rd: x10 <= 0x00000001 (wr: 1)]
+[Cycle  14] PC: 0x00000038 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  15] PC: 0x0000003c | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  16] PC: 0x00000040 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  17] PC: 0x00000044 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  18] PC: 0x00000048 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  19] PC: 0x0000004c | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  20] PC: 0x00000050 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  21] PC: 0x00000054 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  22] PC: 0x00000058 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  23] PC: 0x0000005c | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+[Cycle  24] PC: 0x00000060 | Fetch: 0x00000013 | WB: [rd: x00 <= 0x00000000 (wr: 1)]
+
+===============================================================================
+                       POST-SIMULATION REGISTER AUDIT                          
+===============================================================================
+[PASS] Register x01 = 0x0000000a (10) | x1 (ADDI 10)
+[PASS] Register x02 = 0x00000014 (20) | x2 (ADDI 20)
+[PASS] Register x03 = 0x0000001e (30) | x3 (ADD 10+20)
+[PASS] Register x04 = 0x0000000a (10) | x4 (SUB 20-10)
+[PASS] Register x05 = 0x00000000 (0) | x5 (AND 10&20)
+[PASS] Register x06 = 0x0000001e (30) | x6 (OR 10|20)
+[PASS] Register x07 = 0x0000001e (30) | x7 (XOR 10^20)
+[PASS] Register x08 = 0x00000028 (40) | x8 (SLLI 10<<2)
+[PASS] Register x09 = 0x0000000a (10) | x9 (SRLI 20>>1)
+[PASS] Register x10 = 0x00000001 (1) | x10 (SLT 10<20)
+-------------------------------------------------------------------------------
+Verification Summary: 10 Passed, 0 Failed
+===============================================================================
+>>> ALL ASSERTIONS PASSED! 5-STAGE PIPELINE FUNCTIONALITY VERIFIED. <<<
+testbench/tb_riscv_core.v:94: $finish called at 266000 (1ps)
+
+>>> 5. Running Core RAW Data Hazard Forwarding Test...
+WARNING: rtl/instruction_memory.v:28: $readmemh(testbench/programs/prog_hazard.hex): Not enough words in the file for the requested range [0:1023].
+VCD info: dumpfile simulation/waveform_hazard.vcd opened for output.
+===============================================================================
+          PROTOCOLX RISC-V RAW DATA HAZARD FORWARDING VERIFICATION             
+===============================================================================
+[Cycle  0] PC: 0x00000000 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle  1] PC: 0x00000004 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle  2] PC: 0x00000008 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle  3] PC: 0x0000000c | FwdA: 10, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle  4] PC: 0x00000010 | FwdA: 01, FwdB: 10 | WB: x01 <= 0x0000000f
+[Cycle  5] PC: 0x00000014 | FwdA: 10, FwdB: 00 | WB: x02 <= 0x00000014
+[Cycle  6] PC: 0x00000018 | FwdA: 00, FwdB: 00 | WB: x03 <= 0x00000023
+[Cycle  7] PC: 0x0000001c | FwdA: 00, FwdB: 00 | WB: x04 <= 0x0000002d
+[Cycle  8] PC: 0x00000020 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle  9] PC: 0x00000024 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle 10] PC: 0x00000028 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle 11] PC: 0x0000002c | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle 12] PC: 0x00000030 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle 13] PC: 0x00000034 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+[Cycle 14] PC: 0x00000038 | FwdA: 00, FwdB: 00 | WB: x00 <= 0x00000000
+
+===============================================================================
+                   RAW HAZARD FORWARDING REGISTER AUDIT                        
+===============================================================================
+[PASS] Register x01 = 0x0000000f (15) | ADDI x1, x0, 15)
+[PASS] Register x02 = 0x00000014 (20) |  x2, x1, 5 = 20)
+[PASS] Register x03 = 0x00000023 (35) | x3, x1, x2 = 35)
+[PASS] Register x04 = 0x0000002d (45) | x4, x3, 10 = 45)
+-------------------------------------------------------------------------------
+Hazard Forwarding Summary: 4 Passed, 0 Failed
+===============================================================================
+>>> RAW DATA HAZARD FORWARDING VERIFIED WITHOUT PERFORMANCE BUBBLES. <<<
+testbench/tb_riscv_hazard.v:89: $finish called at 166000 (1ps)
+
+>>> 6. Running Core Memory & Load-Use Stall Test...
+WARNING: rtl/instruction_memory.v:28: $readmemh(testbench/programs/prog_load_store.hex): Not enough words in the file for the requested range [0:1023].
+VCD info: dumpfile simulation/waveform_mem.vcd opened for output.
+===============================================================================
+        PROTOCOLX RISC-V MEMORY (LW/SW) & LOAD-USE STALL VERIFICATION          
+===============================================================================
+[Cycle  0] PC: 0x00000000 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  1] PC: 0x00000004 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  2] PC: 0x00000008 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  3] PC: 0x0000000c | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  4] PC: 0x00000010 | Stall(PC_wr=0, IF_ID_wr=0) | WB: x01 <= 0x00000064
+[Cycle  5] PC: 0x00000010 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  6] PC: 0x00000014 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x02 <= 0x00000064
+[Cycle  7] PC: 0x00000018 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle  8] PC: 0x0000001c | Stall(PC_wr=1, IF_ID_wr=1) | WB: x03 <= 0x00000096
+[Cycle  9] PC: 0x00000020 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x04 <= 0x00000004
+[Cycle 10] PC: 0x00000024 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x04 <= 0x00000096
+[Cycle 11] PC: 0x00000028 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 12] PC: 0x0000002c | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 13] PC: 0x00000030 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 14] PC: 0x00000034 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 15] PC: 0x00000038 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 16] PC: 0x0000003c | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 17] PC: 0x00000040 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 18] PC: 0x00000044 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+[Cycle 19] PC: 0x00000048 | Stall(PC_wr=1, IF_ID_wr=1) | WB: x00 <= 0x00000000
+
+===============================================================================
+                 MEMORY & LOAD-USE REGISTER / DMEM AUDIT                       
+===============================================================================
+[PASS] Register x01 = 0x00000064 (100) | ial value = 100)
+[PASS] W x1 stored 100) = 0x00000064 (100)
+[PASS] Register x02 = 0x00000064 (100) | m DMEM[0] = 100)
+[PASS] Register x03 = 0x00000096 (150) | 3, x2, 50 = 150)
+[PASS] W x3 stored 150) = 0x00000096 (150)
+[PASS] Register x04 = 0x00000096 (150) | m DMEM[1] = 150)
+-------------------------------------------------------------------------------
+Memory & Stall Summary: 6 Passed, 0 Failed
+===============================================================================
+>>> DATA MEMORY INTERFACE AND LOAD-USE INTERLOCKING FULLY VERIFIED. <<<
+testbench/tb_riscv_mem.v:91: $finish called at 216000 (1ps)
+
+>>> 7. Running Core Branch & Control Hazard Flush Test...
+WARNING: rtl/instruction_memory.v:28: $readmemh(testbench/programs/prog_branch.hex): Not enough words in the file for the requested range [0:1023].
+VCD info: dumpfile simulation/waveform_branch.vcd opened for output.
+===============================================================================
+        PROTOCOLX RISC-V BRANCH (BEQ) & CONTROL HAZARD FLUSH VERIFICATION       
+===============================================================================
+[Cycle  0] PC: 0x00000000 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  1] PC: 0x00000004 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  2] PC: 0x00000008 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  3] PC: 0x0000000c | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  4] PC: 0x00000010 | BranchTaken: 1 | Flush(IF/ID=1, ID/EX=1) | WB: x01 <= 0x00000005
+[Cycle  5] PC: 0x00000014 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x02 <= 0x00000005
+[Cycle  6] PC: 0x00000018 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x12 <= 0x00000000
+[Cycle  7] PC: 0x0000001c | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  8] PC: 0x00000020 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle  9] PC: 0x00000024 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x05 <= 0x0000002a
+[Cycle 10] PC: 0x00000028 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 11] PC: 0x0000002c | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 12] PC: 0x00000030 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 13] PC: 0x00000034 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 14] PC: 0x00000038 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 15] PC: 0x0000003c | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 16] PC: 0x00000040 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+[Cycle 17] PC: 0x00000044 | BranchTaken: 0 | Flush(IF/ID=0, ID/EX=0) | WB: x00 <= 0x00000000
+
+===============================================================================
+                   CONTROL HAZARD REGISTER AUDIT                               
+===============================================================================
+[PASS] Register x01 = 0x00000005 (5) |  ADDI x1, x0, 5)
+[PASS] Register x02 = 0x00000005 (5) |  ADDI x2, x0, 5)
+[PASS] Register x03 = 0x00000000 (0) | EMAIN 0, NOT 99)
+[PASS] Register x04 = 0x00000000 (0) | EMAIN 0, NOT 99)
+[PASS] Register x05 = 0x0000002a (42) | ADDI x5, x0, 42)
+-------------------------------------------------------------------------------
+Branch & Flush Summary: 5 Passed, 0 Failed
+===============================================================================
+>>> CONTROL HAZARD PIPELINE FLUSHING FULLY VERIFIED. <<<
+testbench/tb_riscv_branch.v:91: $finish called at 196000 (1ps)
+
+================================================================================
+           ALL VERIFICATION SUITES COMPLETED SUCCESSFULLY!                      
+================================================================================
