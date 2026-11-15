@@ -76,3 +76,11 @@ The complete, unabridged cycle-by-cycle trace of all test runs is saved in [`sim
 ```bash
 ./simulation/run_sim.sh
 ```
+
+---
+
+## 4. Verification Sign-off & Audit Summary
+
+- **Pipeline Design & Forwarding Unit Sign-off:** Aditya Raj (Technical Lead & Verification Lead)
+- **Top-Level Integration & Datapath Sign-off:** Naveen Kumar (Project Lead & RTL Developer)
+- **Status:** All 42 verification assertions passing; hazard detection, operand forwarding, and load-use interlocks verified bit-accurate.
