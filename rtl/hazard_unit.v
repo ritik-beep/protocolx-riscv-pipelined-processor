@@ -45,6 +45,16 @@ module hazard_unit (
     // -------------------------------------------------------------------------
     // 1. Data Forwarding Unit
     // -------------------------------------------------------------------------
+    // Forwarding Priority Truth Table:
+    // 1. EX/MEM Hazard (Priority 1):
+    //    if (reg_write_mem && (rd_mem != 0) && (rd_mem == rs_ex))
+    //       Forward = 2'b10 (Forward ALU result from EX/MEM pipeline register)
+    // 2. MEM/WB Hazard (Priority 2):
+    //    if (reg_write_wb && (rd_wb != 0) && (rd_wb == rs_ex))
+    //       Forward = 2'b01 (Forward writeback data from MEM/WB pipeline register)
+    // 3. No Hazard:
+    //    Forward = 2'b00 (Use register value read during ID stage)
+    // -------------------------------------------------------------------------
     always @(*) begin
         // Forward A Logic
         if (reg_write_mem && (rd_mem != 5'd0) && (rd_mem == rs1_ex)) begin
