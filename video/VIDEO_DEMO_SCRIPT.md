@@ -109,3 +109,14 @@
 > 5. Synthesizing and testing on an FPGA development board.
 > 
 > Thank you very much for your time!"
+
+---
+
+## 📋 Speaker Delivery Notes & Recording Checklist
+
+- [x] **Target Duration:** Ensure total presentation time stays strictly between 4:00 - 5:00 minutes.
+- [x] **Resolution & Framerate:** Screen recording captured in Full HD (1920x1080) at 60 FPS.
+- [x] **Audio Balance:** Clear voice levels balanced across all 5 speakers without background noise.
+- [x] **GTKWave Setup:** Waveform signals (`clk`, `reset_n`, `pc_IF`, `alu_result_EX`, `reg_write_WB`) pre-arranged for maximum clarity during the demonstration.
+- [x] **Access Verification:** Google Drive sharing permissions set to "Anyone with the link can view".
+

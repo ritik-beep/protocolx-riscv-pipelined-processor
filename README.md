@@ -207,6 +207,14 @@ A 5-minute video presentation covering the project introduction, member roles, a
   👉 **[ProtocolX Phase I Prototype Video (Google Drive)](https://drive.google.com/drive/folders/11hZyntXJBju4w4UMHXSxqYusGwjAtXKI?usp=sharing)**  
   *(Also recorded in [`video/VIDEO_LINK.md`](video/VIDEO_LINK.md) and [`video/README.md`](video/README.md))*
 
+- **Presentation Chapter Breakdown:**
+  - `0:00` — Overview & Team Introductions
+  - `1:10` — Pipeline Architecture Walkthrough & Block Diagram
+  - `2:00` — Verilog RTL Implementation Details
+  - `3:15` — Live Simulation, Testbench Assertions & Waveforms
+  - `4:30` — Phase I Conclusion & Phase II Roadmap
+
+
 ---
 
 ## 🗺️ Project Status & Roadmap

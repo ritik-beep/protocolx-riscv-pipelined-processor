@@ -19,6 +19,14 @@
 - **Target Duration:** < 5 minutes
 - **Resolution:** Full HD (1080p)
 - **Audio / Presentation:** English narration covering all 5 team members
+- **Timestamp Chapter Markers:**
+  - `00:00` — Overview & Team Introductions (Naveen Kumar)
+  - `00:35` — Detailed Roster & Member Responsibilities (All Members)
+  - `01:10` — 5-Stage Pipeline Architectural Walkthrough (Ritik Ranjan & Archit Mamodiya)
+  - `02:00` — Verilog RTL Module Breakdown (Naveen Kumar)
+  - `03:15` — Automated Icarus Verilog Testbench & Waveform Demo (Aditya Raj)
+  - `04:30` — Summary, Audit Sign-Off & Phase II Roadmap (Shagun Vishnoi)
+
 
 ---
 
