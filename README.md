@@ -39,11 +39,13 @@ Instruction 5:                         [IF]  [ID]  [EX]  [MEM] [WB]
 
 ---
 
-## 🏗️ Processor Architecture
+## 🏗️ Processor Architecture & Live Pipeline Execution
 
-![ProtocolX Architecture Diagram](diagrams/protocolx_pipeline_architecture.svg)
+<p align="center">
+  <img src="diagrams/pipeline_animation.gif" alt="ProtocolX 5-Stage Pipeline Live Animation" width="100%" />
+</p>
 
-*(A detailed step-by-step walkthrough is available in [diagrams/diagram_description.md](diagrams/diagram_description.md))*
+*Above: Live execution showing instructions overlapping across the 5 stages (`IF` $\rightarrow$ `ID` $\rightarrow$ `EX` $\rightarrow$ `MEM` $\rightarrow$ `WB`) with real-time data forwarding. For the static vector schematic, see [diagrams/protocolx_pipeline_architecture.svg](diagrams/protocolx_pipeline_architecture.svg) and the walkthrough in [diagrams/diagram_description.md](diagrams/diagram_description.md).*
 
 ### The 5 Pipeline Stages
 1. **Instruction Fetch (IF):** Reads the 32-bit instruction from memory using the Program Counter (PC) and increments `PC = PC + 4`.
@@ -101,6 +103,7 @@ protocolx-riscv-pipelined-processor/
 │       └── prog_branch.hex            # Branch condition test program
 │
 ├── diagrams/                          # Architectural Diagrams
+│   ├── pipeline_animation.gif         # Live animated GIF of 5-stage pipeline
 │   ├── protocolx_pipeline_architecture.svg # Vector block diagram
 │   ├── simulation_waveform_diagram.svg     # Timing and cycle waveform diagram
 │   └── diagram_description.md         # Detailed diagram walkthrough
