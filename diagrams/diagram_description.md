@@ -74,3 +74,20 @@ Between each stage, we have pipeline registers that store the intermediate resul
   When an instruction immediately uses the value loaded by `LW`, the data isn't ready in time for simple forwarding. Our **Hazard Unit** automatically detects this, pauses PC and IF/ID for 1 clock cycle, and inserts a single bubble (NOP).
 - **Control Hazards (Branch Taken):**
   When a conditional branch is taken, the instructions already fetched behind it in the pipeline are wrong. The Hazard Unit flushes them (turns them into NOPs) so they don't modify any registers or memory.
+
+---
+
+## 5. Architectural Notes & Summary Reference
+
+| Stage | Primary Inputs | Primary Outputs | Key Latched Signals |
+|:---:|:---|:---|:---|
+| **IF** | `PC`, `branch_target_EX` | `instruction_IF`, `pc_plus_4_IF` | `PC`, `instruction` |
+| **ID** | `instruction_ID`, `writeback_data` | `reg_data1`, `reg_data2`, `immediate_ID`, control bits | Decoded operands, immediate, control signals |
+| **EX** | Operands, forwarded values | `alu_result_EX`, `branch_target_EX`, `zero_flag_EX` | ALU result, destination register `rd`, branch decision |
+| **MEM** | `alu_result_MEM`, `store_data` | `mem_read_data_MEM`, `alu_result_MEM` | Loaded data, memory status |
+| **WB** | `mem_read_data_WB`, `alu_result_WB` | `writeback_data` to Register File | Final register commit |
+
+- **Clock Edge:** All pipeline registers and the register file trigger on the positive clock edge (`posedge clk`).
+- **Synchronous Flush:** Flushes clear control signals to prevent erroneous state updates during mispredicted branches or stalls.
+- **Bypass Mechanism:** Same-cycle register file bypass ensures values written during WB are immediately readable in ID during the same clock cycle.
+
