@@ -200,7 +200,9 @@ A complete cycle-by-cycle execution trace can be found in [`simulation/simulatio
 
 A 5-minute video presentation covering the project introduction, member roles, architecture walkthrough, Verilog code review, and live simulation is documented in [`video/VIDEO_DEMO_SCRIPT.md`](video/VIDEO_DEMO_SCRIPT.md).
 
-- **Demonstration Video Link:** See [`video/VIDEO_LINK.md`](video/VIDEO_LINK.md) for the active submission URL placeholder.
+- **Demonstration Video Link (Google Drive):**  
+  👉 **[ProtocolX Phase I Prototype Video (Google Drive)](https://drive.google.com/drive/folders/11hZyntXJBju4w4UMHXSxqYusGwjAtXKI?usp=sharing)**  
+  *(Also recorded in [`video/VIDEO_LINK.md`](video/VIDEO_LINK.md) and [`video/README.md`](video/README.md))*
 
 ---
 
