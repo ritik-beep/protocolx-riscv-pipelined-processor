@@ -72,6 +72,13 @@ module tb_riscv_hazard;
         $display("                   RAW HAZARD FORWARDING REGISTER AUDIT                        ");
         $display("===============================================================================");
 
+        // ---------------------------------------------------------------------
+        // Test Vector Audit:
+        // Test Case 1: x1 <= 15 (Initial seed load via ADDI)
+        // Test Case 2: x2 <= 20 (Immediate RAW dependency on x1; resolved by EX/MEM forwarding)
+        // Test Case 3: x3 <= 35 (Dual RAW dependency on x1 [MEM/WB] and x2 [EX/MEM])
+        // Test Case 4: x4 <= 45 (Immediate RAW dependency on x3; resolved by EX/MEM forwarding)
+        // ---------------------------------------------------------------------
         assert_reg(5'd1, 32'd15, "x1 (Initial ADDI x1, x0, 15)");
         assert_reg(5'd2, 32'd20, "x2 (EX/MEM Forwarded x1: ADDI x2, x1, 5 = 20)");
         assert_reg(5'd3, 32'd35, "x3 (Dual Forwarded x1 and x2: ADD x3, x1, x2 = 35)");
